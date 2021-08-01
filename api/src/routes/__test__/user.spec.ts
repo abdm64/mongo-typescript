@@ -63,6 +63,28 @@ import { app } from '../../app';
       expect(userName).toBe('abdm')
     });
 
+
+    it('delete user by id', async () => {
+      // craete that user 
+      let res =  await request(app)
+        .post('/api/v1/user')
+        .send({
+          name: 'abdm',
+          hobby:{
+              passion : "Low",
+              year: 2013,
+              name: "gaming" 
+          }
+        })
+      let userId = res.body.id
+       await  request(app).delete(`/api/v1/user/${userId}`)
+      let userResponse  = await  request(app).get(`/api/v1/user/${userId}`).expect(404)
+      let userName = userResponse.body.name
+      
+      expect(userName).toBe(undefined)
+     
+    });
+
   
 
 

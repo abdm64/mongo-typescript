@@ -74,7 +74,7 @@ const router: Router = Router();
  *             schema:
  *               type: array 
  *               items :
- *               $ref: '#/components/schemas/Hobby'
+ *                 $ref: '#/components/schemas/Hobby'
  *       500:
  *         description: Some server error
  *       404:
@@ -148,11 +148,17 @@ async (req : Request,res: Response) : Promise<Response> => {
  *         description: add hobby to a specific user using the userId  
  *     responses:
  *       200:
- *         description: The hobby was successfully updated
+ *         description: The hobbies was successfully updated for the user 
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User' 
  *       500:
  *         description: Some server error
  *       404:
- *         description: Not Found  
+ *         description: Not Found 
+ *       409 :
+ *         description: when you add a hobby already exist in the array of hobbies related to that user  
  */
 
 
@@ -176,7 +182,7 @@ async (req : Request,res: Response) : Promise<Response> => {
   
   
      if (user)  { 
-       // user cant have 2 hobbies with the same name 
+       // user can t have 2 hobbies with the same name 
         const hobbyName = getNames(user.hobbies)
         if (hobbyName.includes(hobbieInput.name)) { 
           return res.status(StatusCodes.CONFLICT).send({ message : "hobby already exist for that user" })
@@ -239,7 +245,7 @@ async (req : Request,res: Response) : Promise<Response> => {
  *       500:
  *         description: Some server error
  *       404:
- *         description: Not Found  
+ *         description: Not Found  user or hobby
  */
 
    router.delete('/hobby/:id/:_id',async (req : Request,res: Response) : Promise<Response> => {
@@ -270,7 +276,7 @@ async (req : Request,res: Response) : Promise<Response> => {
  * @swagger
  * /api/v1/hobby/{userId}/{hobbyId}:
  *   put:
- *     summary: update hobby
+ *     summary: update hobby by user id 
  *     tags: [Hobbies]
  *     parameters:
  *       - in: path
@@ -290,10 +296,10 @@ async (req : Request,res: Response) : Promise<Response> => {
  *              schema:
  *                $ref: '#/components/schemas/Hobby'
  *         example: 
- *            - hobby:
- *                name : PS4  
- *                passion: Low
- *                year : 2013        
+ *             hobby:
+ *               name : PS4  
+ *               passion: Low
+ *               year : 2013        
  *         description: update specific hobby for a specific user 
  *     responses:
  *       200:
@@ -302,9 +308,11 @@ async (req : Request,res: Response) : Promise<Response> => {
  *         description: Some server error
  *       404:
  *         description: Not Found  
+ *       409:
+ *         description : when try to update the name of hobby to name are already exist with that user 
  */
 
-   router.put('/hobby/:id/:_id',checkUserInputValidator(),async (req : Request,res: Response) : Promise<Response> => {
+   router.put('/hobby/:id/:_id',checkHobbyInputValidator(),async (req : Request,res: Response) : Promise<Response> => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });

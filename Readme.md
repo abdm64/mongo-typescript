@@ -45,7 +45,7 @@ You need to install the fellowing software in order to get the application up an
 The application architecture contain 2 part
 
 - express Nodejs application written in typescript that connect to mongodb to preform a CRUD Operations 
-- the api get all the information from the  request to preform CRUD operation to the database ( see the api docs on /docs) 
+- the api get all the information from the  request to preform CRUD operation to the database ( see the api documentation  on /docs) 
 
 
 
@@ -85,7 +85,7 @@ npm run test:watch
 - to run the test with Coverage just run npm run test in the api directory 
 
 ```
-npm run test:watch
+npm run test
 ```
 PS : the tests does NOT cover all use cases
 
@@ -135,7 +135,7 @@ docker run -e [inject your env variable here] my-app-name:v1
 ## Kubernetes  <a name = "k8s"></a>
 
 - you should have access to Kubernetes cluster GKE or you can download and install a Kubernetes cluster  in your machine for  development purposes 
-- install and configure ingress nginx on your Kubernetes cluster Please see [ingress nginx] (https://kubernetes.github.io/ingress-nginx/)
+- install and configure ingress nginx on your Kubernetes cluster Please see [ingress-nginx] (https://kubernetes.github.io/ingress-nginx/).
 
 
 
@@ -149,14 +149,14 @@ cd infra
 ```
 bash deploy.sh 
 ```
-- This script take care of everything, build docker image and deploy it to a kubernetes you must have kubectl cli 
+- This script take care of everything, build docker image and deploy it to a kubernetes (you must have kubectl cli )
 
 - this will create 3 Kubernetes objects:
 
-  - Deployment for the application with one pod ( running container) insuring high availability for that service.
+  - Deployment for the api with one pod ( running container) insuring high availability for that service.
   - Cluster ip service that connected to the pod .
   - ingress service that connect the cluster ip service with ingress-nginx load balancer .
-  - Statefulset the mongodb database. 
+  - StatefulSet the mongodb database. 
   - PVC (Persistent Volume Claim) to store the data from the database 
 
 
@@ -165,7 +165,7 @@ bash deploy.sh
 ```
 kubectl delete  -f infra/k8s
 ```
-PS : the config provided works on local k8s cluster with docker desktop in order to works in cloud  you must change env varible 
+PS : the config provided works on local k8s cluster with docker desktop in order to works in cloud  you must change env variable 
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 - [Mongodb](https://www.mongodb.com/) -  Node.js ORM for mongodb

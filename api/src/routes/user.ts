@@ -22,15 +22,13 @@ const router: Router = Router();
  * @swagger
  * components:
  *   schemas:
- *     User:
+ *     Input:
  *       type: object
  *       required:
  *         - name
  *         - hobby
  *       properties:
- *         id:
- *           type: string
- *           description: The auto-generated id of the user
+
  *         name:
  *           type: string
  *           description: The name of the user
@@ -43,7 +41,7 @@ const router: Router = Router();
  *           properties:  
  *              name:
  *                type: string 
- *                description: The name of the  hobby
+ *                description: The name of the  hobby must be unique with every user
  *              passion:
  *                type : string 
  *                description: The level of passion 
@@ -51,12 +49,55 @@ const router: Router = Router();
  *                type : integer  
  *                description: started year
  *                
- *           description:  the object of hobbies 
+ *           description:  the object that define hobby 
+ *       example: 
+ *         name: abdm 
+ *         hobby: 
+ *            name: football
+ *            passion: Low
+ *            year: 2017
+ *
+ *
+ */
+
+
+
+
+ /**
+  * @swagger
+  * tags:
+  *   name: Users
+  *   description: The  CRUD API for user
+  */
+
+
+
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - name
+ *         - hobbies
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated id of the user
+ *         name:
+ *           type: string
+ *           description: The name of the user
+ *         hobbies:
+ *           type: array
+ *           items: 
+ *              $ref: '#/components/schemas/Hobby'  
  *       example: 
  *         name: abdm
  *         id: 61056e112924a2549d49460f  
- *         hobby: 
- *            id: 61056e112924a2549d49460d
+ *         hobbies: 
+ *          - id: 61056e112924a2549d49460d
  *            name: football
  *            passion: Low
  *            year: 2017
@@ -76,15 +117,15 @@ const router: Router = Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/User'
+ *             $ref: '#/components/schemas/Input'
  *     responses:
  *       200:
- *         description: get all users
+ *         description: save user
  *         content:
  *           application/json:
  *             schema:
- *              type: array
- *              items:
+ *              
+ *              
  *               $ref: '#/components/schemas/User'
  *         example: 
  *          name: abd8
@@ -96,6 +137,8 @@ const router: Router = Router();
  *             year: 2017
  *       500:
  *         description: Some server error
+ *       400:
+ *         description : bad request 
  */
 
 
@@ -156,7 +199,7 @@ checkUserInputValidator()
  *             schema:
  *               type: array 
  *               items:  
- *               $ref: '#/components/schemas/User'
+ *                 $ref: '#/components/schemas/User'
  *       500:
  *         description: Some server error
  */
@@ -211,8 +254,6 @@ return res.status(StatusCodes.NOT_FOUND).send({ message  : "users not found" })
  *         content:
  *           application/json:
  *             schema:
- *                
- *         
  *               $ref: '#/components/schemas/User'
  *       500:
  *         description: Some server error
@@ -274,11 +315,10 @@ router.get('/user/:id',async (req : Request,res: Response) : Promise<Response>  
  *         content:
  *            application/json:
  *               schema:
- *                 $ref: '#/components/schemas/User' 
+ *                 $ref: '#/components/schemas/Input' 
  *     responses:
  *       200:
  *         description: The user was successfully updated
-
  *       500:
  *         description: Some server error
  *       404:
@@ -292,6 +332,8 @@ router.get('/user/:id',async (req : Request,res: Response) : Promise<Response>  
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+    
+    
 
 
     try  {
@@ -300,7 +342,7 @@ router.get('/user/:id',async (req : Request,res: Response) : Promise<Response>  
       if (user)  { 
   
            await  User.findOneAndUpdate( { _id: id }, { name } ).populate('hobbies')
-          return res.status(StatusCodes.OK)
+          return res.status(StatusCodes.OK).send()
       }
   
       return res.status(StatusCodes.NOT_FOUND).send({ message  : "user not found" }) 
