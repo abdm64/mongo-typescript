@@ -9,13 +9,13 @@ import { Passion } from "./Passion";
  * @param id:string
  * @param year :number
  */
-export interface IHobbie extends Document {
+export interface IHobby extends Document {
 
 
-  hobbies : HobbieModel[]
+  hobbies : HobbyModel[]
  
 }
-export interface HobbieModel extends Document  {
+export interface HobbyModel extends Document  {
 
   name: string;
   passion: Passion;
@@ -24,7 +24,7 @@ export interface HobbieModel extends Document  {
 
 }
 
-const hobbieSchema: Schema = new Schema({
+const hobbySchema: Schema = new Schema({
 
 
 
@@ -63,6 +63,6 @@ const hobbieSchema: Schema = new Schema({
   }
 });
 
-const Hobbie: Model<IHobbie> = model("hobbie", hobbieSchema);
+const Hobby: Model<IHobby> = model("hobby", hobbySchema,"hobbies");
 
-export default Hobbie;
+export default Hobby;

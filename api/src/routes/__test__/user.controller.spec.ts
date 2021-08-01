@@ -14,7 +14,7 @@ import { app } from '../../app';
         .post('/api/v1/user')
         .send({
           name: 'abdm',
-          hobbie :{
+          hobby:{
               passion : "Low",
               year: 2013,
               name: "gaming" 
@@ -24,13 +24,13 @@ import { app } from '../../app';
     });
 
 
-    it('get user by id and verify the return type of hobbie is array ', async () => {
+    it('get user by id and verify the return type of hobbies  array ', async () => {
       
       let res =  await request(app)
         .post('/api/v1/user')
         .send({
           name: 'abdm',
-          hobbie :{
+          hobby:{
               passion : "Low",
               year: 2013,
               name: "gaming" 
@@ -49,7 +49,7 @@ import { app } from '../../app';
         .post('/api/v1/user')
         .send({
           name: 'abdm',
-          hobbie :{
+          hobby:{
               passion : "Low",
               year: 2013,
               name: "gaming" 

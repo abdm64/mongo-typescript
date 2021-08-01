@@ -1,6 +1,6 @@
 
 import { Document, Model, model, Schema, PopulatedDoc } from "mongoose";
-import { IHobbie } from './Hobby';
+import { IHobby } from './Hobby';
 
 /**
  * Interface to model the User Schema for TypeScript.
@@ -10,7 +10,7 @@ import { IHobbie } from './Hobby';
  */
 export interface IUser extends Document {
   name: string;
-  hobbies: PopulatedDoc<IHobbie & Document>
+  hobbies: PopulatedDoc<IHobby & Document>
 }
 
 const userSchema: Schema = new Schema({
@@ -24,7 +24,7 @@ const userSchema: Schema = new Schema({
   
   },
 
-  hobbies: [{type: Schema.Types.ObjectId,  ref: 'hobbie',required : true } ]  ,
+  hobbies: [{type: Schema.Types.ObjectId,  ref: 'hobby',required : true } ]  ,
 
   
 

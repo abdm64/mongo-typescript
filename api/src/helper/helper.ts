@@ -1,9 +1,9 @@
-import { HobbieModel } from "../models/Hobby";
+import { HobbyModel } from "../models/Hobby";
 import User, { IUser } from "../models/User";
 
 
 
-export const deleteHobbie =  async (user : IUser, hobbieId  : string) => { 
+export const deleteHobby=  async (user : IUser, hobbieId  : string) => { 
 
     var index = user.hobbies.indexOf(hobbieId);
     if (index !== -1) {
@@ -15,7 +15,7 @@ export const deleteHobbie =  async (user : IUser, hobbieId  : string) => {
 
 }
 
-export const getNames =  (userHobbies : HobbieModel[]) => { 
+export const getNames =  (userHobbies : HobbyModel[]) => { 
 
   
     return userHobbies.map(({ name }) =>  name)

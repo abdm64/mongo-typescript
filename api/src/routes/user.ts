@@ -1,6 +1,6 @@
 import { Router, Response,Request } from "express";
 import User, { IUser } from "../models/User";
-import Hobbie , { IHobbie , HobbieModel } from "../models/Hobby";
+import Hobby, { IHobby, HobbyModel } from "../models/Hobby";
 import {   StatusCodes } from 'http-status-codes';
 import {  check, validationResult } from 'express-validator';
 import {  checkUserInputValidator  } from '../middlewares/checkValidator'
@@ -26,7 +26,7 @@ const router: Router = Router();
  *       type: object
  *       required:
  *         - name
- *         - hobbie
+ *         - hobby
  *       properties:
  *         id:
  *           type: string
@@ -34,7 +34,7 @@ const router: Router = Router();
  *         name:
  *           type: string
  *           description: The name of the user
- *         hobbie:
+ *         hobby:
  *           type: object
  *           required: 
  *             - name
@@ -55,7 +55,7 @@ const router: Router = Router();
  *       example: 
  *         name: abdm
  *         id: 61056e112924a2549d49460f  
- *         hobbie: 
+ *         hobby: 
  *            id: 61056e112924a2549d49460d
  *            name: football
  *            passion: Low
@@ -89,7 +89,7 @@ const router: Router = Router();
  *         example: 
  *          name: abd8
  *          id: 61056e112924a2549d49460f  
- *          hobbie: 
+ *          hobby: 
  *             id: 61056e112924a2549d49460d
  *             name: football
  *             passion: Low
@@ -107,9 +107,9 @@ checkUserInputValidator()
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const hobbiesInput: HobbieModel = req.body.hobbie 
+    const hobbiesInput: HobbyModel = req.body.hobby
     const name = req.body.name
-    const hobbie = new Hobbie ( {
+    const hobby= new Hobby( {
      
           passion : hobbiesInput.passion,
           year : hobbiesInput.year,
@@ -119,10 +119,10 @@ checkUserInputValidator()
 
           try  {
             
-            await hobbie.save()
+            await hobby.save()
 
             const user: IUser  = new User( {name  }  )
-            user.hobbies.push(hobbie)
+            user.hobbies.push(hobby)
             const savedUser = await user.save()
           return  res.status(StatusCodes.CREATED).send(savedUser)
 
@@ -358,8 +358,8 @@ router.get('/user/:id',async (req : Request,res: Response) : Promise<Response>  
 
       if (user)  { 
        
-        const userHobbies : HobbieModel[] = user.hobbies
-        await Hobbie.deleteMany( { _id : { $in: userHobbies} } )
+        const userHobbies : HobbyModel[] = user.hobbies
+        await Hobby.deleteMany( { _id : { $in: userHobbies} } )
         await  User.findOneAndDelete( { _id: id } )
         return res.status(204).send()
       

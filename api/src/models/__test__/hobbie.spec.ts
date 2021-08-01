@@ -1,14 +1,14 @@
 import assert from "assert";
 import User, { IUser } from "../User";
-import Hobbie , { IHobbie , HobbieModel } from "../Hobby";
+import Hobby , { IHobby , HobbyModel } from "../Hobby";
 
 
-describe('Hobbie Model', () => {
+describe('hobbyModel', () => {
     let joe: IUser 
-    let football : IHobbie
+    let football : IHobby
     beforeEach(async () => {
         joe = new User({ name: 'Joe' });
-        football = new Hobbie({ name: 'Football', passion: 'Medium', year: 2010   })
+        football = new Hobby({ name: 'Football', passion: 'Medium', year: 2010   })
         joe.hobbies.push(football)
         await joe.save()
         await football.save()

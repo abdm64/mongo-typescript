@@ -9,8 +9,8 @@
     "serve": "cross-env NODE_ENV=development concurrently \"tsc  --noEmitOnError --watch\" \"nodemon  dist/index.js\"",
     "prestart": "npm run build",
     "start": " node dist/index.js",
-    "test": " rimraf dist && jest --watchAll --passWithNoTests",
-    "test:ci": "rimraf dist && jest --collectCoverage"
+    "test:watch": " rimraf dist && jest --watchAll --passWithNoTests",
+    "test": "rimraf dist && jest --collectCoverage"
   },
   "jest": {
     "preset": "ts-jest",
