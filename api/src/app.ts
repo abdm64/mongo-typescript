@@ -1,7 +1,7 @@
 import  express  from "express";
 import { json, urlencoded } from "body-parser";
-import userRouter from "./controllers/user.controller"
-import hobbieRouter from "./controllers/hobbie.controller"
+import userRouter from "./routes/user"
+import hobbieRouter from "./routes/hobby"
 import swaggerUi from 'swagger-ui-express'
 import swaggerJsDoc from 'swagger-jsdoc'
 
@@ -22,7 +22,7 @@ const options = {
 			},
 		],
 	},
-	apis: ["**/*.{js,ts}"],
+	apis: process.env.NODE_ENV === 'production' ? ["**/*.js"] : ["**/*.ts"],
 };
 const specs = swaggerJsDoc(options);
 

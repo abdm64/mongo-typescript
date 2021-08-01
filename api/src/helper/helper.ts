@@ -1,4 +1,4 @@
-import { HobbieModel } from "../models/Hobbie";
+import { HobbieModel } from "../models/Hobby";
 import User, { IUser } from "../models/User";
 
 

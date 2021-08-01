@@ -1,9 +1,9 @@
 import { Router, Response,Request } from "express";
 import User, { IUser } from "../models/User";
-import Hobbie , { IHobbie , HobbieModel } from "../models/Hobbie";
+import Hobbie , { IHobbie , HobbieModel } from "../models/Hobby";
 import {   StatusCodes } from 'http-status-codes';
 import {  check, validationResult } from 'express-validator';
-import {  checkUserInputValidator  } from '../middleware/checkValidator'
+import {  checkUserInputValidator  } from '../middlewares/checkValidator'
 
 
 const router: Router = Router();

@@ -1,6 +1,6 @@
 
 import { Document, Model, model, Schema, PopulatedDoc } from "mongoose";
-import { IHobbie } from './Hobbie';
+import { IHobbie } from './Hobby';
 
 /**
  * Interface to model the User Schema for TypeScript.

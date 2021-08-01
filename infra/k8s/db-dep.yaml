@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-dep  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: db-dep
+  template:
+    metadata:
+      labels:
+        component: db-dep
+  spec: 
+     volumes:
+        - name: db-claim
+          persistentVolumeClaim:
+            claimName: db-pvc
+     containers:
+        - name: mongo
+          image: mongo
+          ports:
+            - containerPort: 27017 
+          volumeMounts:
+          - name: db-claim
+            mountPath: /data/db       
+            
+            
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-svc
+  
+spec:
+  type: ClusterIP
+  selector:
+    component: db-dep
+  ports:
+    - port: 27017
+      targetPort: 27017           

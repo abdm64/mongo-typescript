@@ -1,10 +1,10 @@
 import { Router, Response,Request } from "express";
 import User, { IUser } from "../models/User";
-import Hobbie , { IHobbie , HobbieModel } from "../models/Hobbie";
+import Hobbie , { IHobbie , HobbieModel } from "../models/Hobby";
 import   { deleteHobbie , getNames } from "../helper/helper";
 import {  StatusCodes } from 'http-status-codes';
 import {  body, validationResult,check ,checkSchema  } from 'express-validator';
-import {  checkHobbyInputValidator, checkUserInputValidator  } from '../middleware/checkValidator'
+import {  checkHobbyInputValidator, checkUserInputValidator  } from '../middlewares/checkValidator'
 const router: Router = Router();
 
 

@@ -8,7 +8,7 @@
     "preserve": "npm run build",
     "serve": "cross-env NODE_ENV=development concurrently \"tsc  --noEmitOnError --watch\" \"nodemon  dist/index.js\"",
     "prestart": "npm run build",
-    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "start": " node dist/index.js",
     "test": " rimraf dist && jest --watchAll --passWithNoTests",
     "test:ci": "rimraf dist && jest --collectCoverage"
   },
