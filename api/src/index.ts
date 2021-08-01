@@ -1,24 +1,12 @@
-import { Request, Response} from "express"
-import { json, urlencoded } from "body-parser";
-import  express  from "express";
+import { app } from './app';
 import connectDB from "./config/database";
 
-const app = express();
+
+
+
 
 // Connect to MongoDB
-connectDB();
-
-// Express configuration
-app.set("port", process.env.PORT || 3000);
-app.use(json());
-app.use(urlencoded({ extended: false }));
-
-// @route   GET /
-// @desc    Test Base API
-// @access  Public
-app.get("/", (_req : Request, res: Response) => {
-  res.send("API Running");
-});
+  connectDB();
 
 
 const port = app.get("port");

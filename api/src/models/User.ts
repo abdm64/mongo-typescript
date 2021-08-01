@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import { Document, Model, model, Schema } from "mongoose";
+
+import { Document, Model, model, Schema, PopulatedDoc } from "mongoose";
 import { IHobbie } from './Hobbie';
 
 /**
@@ -10,25 +10,39 @@ import { IHobbie } from './Hobbie';
  */
 export interface IUser extends Document {
   name: string;
-  id: string;
-  hobbies: IHobbie[]
+  hobbies: PopulatedDoc<IHobbie & Document>
 }
 
 const userSchema: Schema = new Schema({
+
+  
+ 
+ 
   name: {
     type: String,
     required: true,
   
   },
-  id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    unique: true
-  },
-  hobbies: { type: mongoose.Schema.Types.ObjectId, ref: 'Hobbie', required: true },
 
-});
+  hobbies: [{type: Schema.Types.ObjectId,  ref: 'hobbie',required : true } ]  ,
 
-const User: Model<IUser> = model("User", userSchema);
+  
+
+}
+,
+
+{
+  toJSON: {
+    transform(doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+      delete ret.password;
+      delete ret.__v;
+    }
+  }
+}
+);
+
+const User: Model<IUser> = model("user", userSchema);
 
 export default User;

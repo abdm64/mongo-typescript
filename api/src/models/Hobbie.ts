@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+
 import { Document, Model, model, Schema } from "mongoose";
-import { Passion } from './Passion';
+import { Passion } from "./Passion";
 
 /**
  * Interface to model the User Schema for TypeScript.
@@ -10,38 +10,59 @@ import { Passion } from './Passion';
  * @param year :number
  */
 export interface IHobbie extends Document {
+
+
+  hobbies : HobbieModel[]
+ 
+}
+export interface HobbieModel extends Document  {
+
   name: string;
   passion: Passion;
-  id: string;
   year : number
+
+
 }
 
 const hobbieSchema: Schema = new Schema({
+
+
+
   name: {
     type: String,
     required: true,
+    
   
   },
-  id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    unique: true
-  },
+  
   passion: {
     type: String,
     required: true,
- 
+    enum: Passion
+  
   },
- 
- year: {
+  
+  year: {
     type: Number,
     required: true,
   
-  }
+  },
+ 
  
 
+},
+
+{
+  toJSON: {
+    transform(doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+      delete ret.password;
+      delete ret.__v;
+    }
+  }
 });
 
-const Hobbie: Model<IHobbie> = model("Hobbie", hobbieSchema);
+const Hobbie: Model<IHobbie> = model("hobbie", hobbieSchema);
 
 export default Hobbie;
