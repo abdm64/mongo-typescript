@@ -1,7 +1,7 @@
 import { Router, Response,Request } from "express";
 import User, { IUser } from "../models/User";
-import Hobby , { IHobby , HobbyModel } from "../models/Hobby";
-import   {  deleteHobby, getNames } from "../helper/helper";
+import Hobby , { IHobby  } from "../models/Hobby";
+import   {   getNames } from "../helper/helper";
 import {  StatusCodes } from 'http-status-codes';
 import {  body, validationResult,check ,checkSchema  } from 'express-validator';
 import {  checkHobbyInputValidator, checkUserInputValidator  } from '../middlewares/checkValidator'
@@ -75,6 +75,11 @@ const router: Router = Router();
  *               type: array 
  *               items :
  *                 $ref: '#/components/schemas/Hobby'
+ *             example:
+ *               - name : gaming
+ *                 passion : Low
+ *                 year : 2015
+ *                 id : 6107c6438c47dc465ab79df3   
  *       500:
  *         description: Some server error
  *       404:
@@ -175,7 +180,7 @@ async (req : Request,res: Response) : Promise<Response> => {
     }
     try  {
             
-      const hobbieInput: HobbyModel = req.body.hobby 
+      const hobbieInput: IHobby = req.body.hobby 
       const id = req.params.id
       const user = await  User.findOne( { _id: id }).populate('hobbies')
       
@@ -257,7 +262,8 @@ async (req : Request,res: Response) : Promise<Response> => {
   
   
       if (user  &&  hobby) {
-          const deletedhobby= deleteHobby(user,hobbieId)
+         // const deletedhobby= deleteHobby(user,hobbieId)
+         user.removeHobby(hobbieId)
           return  res.status(204).send()
         }
         return res.status(StatusCodes.NOT_FOUND).send({ message  : "not found" })  
@@ -321,7 +327,7 @@ async (req : Request,res: Response) : Promise<Response> => {
             
         const userId = req.params.id
         const hobbyId = req.params._id
-        const hobbyInput : HobbyModel = req.body.hobby
+        const hobbyInput : IHobby = req.body.hobby
         const hobby= await Hobby.findOne( { _id: hobbyId })
         const user = await User.findOne( { _id: userId })
         

@@ -10,7 +10,8 @@ import { IHobby } from './Hobby';
  */
 export interface IUser extends Document {
   name: string;
-  hobbies: PopulatedDoc<IHobby & Document>
+  hobbies: IHobby[]
+  removeHobby(id : string): void
 }
 
 const userSchema: Schema = new Schema({
@@ -39,9 +40,24 @@ const userSchema: Schema = new Schema({
       delete ret.password;
       delete ret.__v;
     }
-  }
+  },
 }
 );
+
+userSchema.methods.removeHobby = async function (id : string) {
+  //@ts-ignore
+  var index = this.hobbies.indexOf(id);
+    if (index !== -1) {
+      //@ts-ignore
+        this.hobbies.splice(index, 1);
+     return await this.save()
+    }
+
+    return
+  
+};
+
+
 
 const User: Model<IUser> = model("user", userSchema);
 

@@ -1,6 +1,6 @@
 import { Router, Response,Request } from "express";
 import User, { IUser } from "../models/User";
-import Hobby, { IHobby, HobbyModel } from "../models/Hobby";
+import Hobby, { IHobby } from "../models/Hobby";
 import {   StatusCodes } from 'http-status-codes';
 import {  check, validationResult } from 'express-validator';
 import {  checkUserInputValidator  } from '../middlewares/checkValidator'
@@ -150,7 +150,7 @@ checkUserInputValidator()
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const hobbiesInput: HobbyModel = req.body.hobby
+    const hobbiesInput: IHobby = req.body.hobby
     const name = req.body.name
     const hobby= new Hobby( {
      
@@ -400,7 +400,7 @@ router.get('/user/:id',async (req : Request,res: Response) : Promise<Response>  
 
       if (user)  { 
        
-        const userHobbies : HobbyModel[] = user.hobbies
+        const userHobbies : IHobby[] = user.hobbies
         await Hobby.deleteMany( { _id : { $in: userHobbies} } )
         await  User.findOneAndDelete( { _id: id } )
         return res.status(204).send()

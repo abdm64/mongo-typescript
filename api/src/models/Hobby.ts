@@ -9,14 +9,9 @@ import { Passion } from "./Passion";
  * @param id:string
  * @param year :number
  */
-export interface IHobby extends Document {
 
-
-  hobbies : HobbyModel[]
- 
-}
-export interface HobbyModel extends Document  {
-
+export interface IHobby extends Document  {
+  id  :string
   name: string;
   passion: Passion;
   year : number

@@ -1,6 +1,6 @@
 import assert from "assert";
 import User, { IUser } from "../User";
-import Hobby , { IHobby , HobbyModel } from "../Hobby";
+import Hobby , { IHobby  } from "../Hobby";
 
 
 describe('hobbyModel', () => {
