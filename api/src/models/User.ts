@@ -6,7 +6,7 @@ import { IHobby } from './Hobby';
  * Interface to model the User Schema for TypeScript.
  * @param name:string
  * @param id:string
- * @param hobbies:IHobbie[]
+ * @param hobbies:IHobby[]
  */
 export interface IUser extends Document {
   name: string;
@@ -25,7 +25,7 @@ const userSchema: Schema = new Schema({
   
   },
 
-  hobbies: [{type: Schema.Types.ObjectId,  ref: 'hobby',required : true } ]  ,
+  hobbies: [{type: Schema.Types.ObjectId,  ref: 'hobby',required : true }]   ,
 
   
 
@@ -37,7 +37,7 @@ const userSchema: Schema = new Schema({
     transform(doc, ret) {
       ret.id = ret._id;
       delete ret._id;
-      delete ret.password;
+     
       delete ret.__v;
     }
   },

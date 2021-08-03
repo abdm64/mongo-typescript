@@ -8,7 +8,7 @@
     "preserve": "npm run build",
     "serve": "cross-env NODE_ENV=development concurrently \"tsc  --noEmitOnError --watch\" \"nodemon  dist/index.js\"",
     "prestart": "npm run build",
-    "start": " node dist/index.js",
+    "start:prod": "node dist/index.js",
     "test:watch": " rimraf dist && jest --watchAll --passWithNoTests",
     "test": "rimraf dist && jest --collectCoverage"
   },
@@ -26,7 +26,7 @@
   "author": "abdm64",
   "license": "MIT ",
   "dependencies": {
-    "@types/config": "^0.0.39",
+    
     "body-parser": "^1.19.0",
     "config": "^3.3.6",
     "cross-env": "^7.0.3",
@@ -39,6 +39,7 @@
     "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
+    "@types/config": "^0.0.39",
     "@types/body-parser": "^1.19.1",
     "@types/express": "^4.17.13",
     "@types/jest": "^26.0.24",

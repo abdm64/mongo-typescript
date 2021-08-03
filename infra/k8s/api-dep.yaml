@@ -15,13 +15,13 @@ spec:
     spec:
       containers: 
       - name: api 
-        image: getarive/api:latest 
+        image: get/api:latest 
         imagePullPolicy: IfNotPresent 
         ports: 
         - containerPort: 3000 
         env:  
           - name : DB_URL
-            value : mongodb://db-svc:27017/getarive 
+            value : mongodb://db-svc:27017/hobbies 
           - name: BASE_URL
             value: https://localhost
 ---                

@@ -12,7 +12,7 @@ const options = {
 	definition: {
 		openapi: "3.0.0",
 		info: {
-			title: "mongo node express api docs getarive",
+			title: "mongo node express api docs",
 			version: "1.0.0",
 			description: "",
 		},
