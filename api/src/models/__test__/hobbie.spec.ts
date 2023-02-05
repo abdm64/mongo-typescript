@@ -17,7 +17,7 @@ describe('hobbyModel', () => {
       it('saves a relation between a user and hobbies ', async () => {
       const user = await User.findOne({ name: 'Joe' }).populate('hobbies')
       if (user){ 
-        assert(user.hobbies[0].name === 'Footbal');
+        assert(user.hobbies[0].name === 'Football');
        }
       
          
