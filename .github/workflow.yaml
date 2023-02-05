@@ -1,10 +1,9 @@
-name: tests-tickets
-
+name: test
 on:
   pull_request:
     paths:
       - 'api/**'
-
+      
 jobs:
   build:
     runs-on: self-hosted
