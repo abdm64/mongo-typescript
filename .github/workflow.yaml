@@ -1,0 +1,12 @@
+name: test
+on:
+  pull_request:
+    paths:
+      - 'api/**'
+      
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd api && npm install && npm run test
