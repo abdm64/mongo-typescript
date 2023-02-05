@@ -12,6 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: cd api && npm install && npm run build     
-
+    needs: test
 
       
