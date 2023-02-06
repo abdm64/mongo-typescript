@@ -9,9 +9,12 @@ jobs:
       - run: cd api && npm install && npm run test
   build:
     runs-on: ubuntu-latest
+    environment: abdm
     steps:
       - uses: actions/checkout@v2
-      - run: cd api && npm install && npm run build     
+      - run: cd api && npm install && npm run build
+      - run : |
+             "echo repository variable : ${{ vars.APP_URL }}"
     needs: test
 
       
